@@ -44,15 +44,18 @@ public class StudentRepository implements SimpleRepository<Student> {
         entityManager.getTransaction().commit();
     }
 
-    public List<Student> findByGrade(double sum) {
+    public void findByGrade(double sum) {
         entityManager.getTransaction().begin();
-        Query query = entityManager.createNativeQuery("Select avg(gr.value), s.* " +
+        Query query = entityManager.createNativeQuery("Select avg(gr.value), s.firstName, s.lastName, s.id " +
                 "from grade as gr LEFT JOIN Student as s on gr.student_id = s.id\n" +
-                "Group by s.id Having avg(gr.value) > ?", Student.class);
+                "Group by s.id Having avg(gr.value) > ?" +
+                "Order by avg(gr.value) DESC");
         query.setParameter(1,sum);
-        List<Student> students = query.getResultList();
+        List<Object[]> students = query.getResultList();
+        students.forEach(x -> {
+            System.out.println(x[1] + " " + x[2] + " " + x[0]);
+        });
         entityManager.flush();
         entityManager.getTransaction().commit();
-        return students;
     }
 }

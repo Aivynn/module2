@@ -15,8 +15,8 @@ public class StudentsWithHighPerformance implements Command {
         System.out.println("Enter the number to show students with grades higher");
         try {
             int value = SCANNER.nextInt();
-            List<Student> studentList = STUDENT_SERVICE.findByGrade(value);
-            studentList.forEach(System.out::println);
+            STUDENT_SERVICE.findByGrade(value);
+
 
         }
         catch (Exception e) {

@@ -49,7 +49,7 @@ public class StudentService extends SimpleService<Student>{
         repository.findStudentWithHighestGrades();
     }
 
-    public List<Student> findByGrade(double sum){
-        return repository.findByGrade(sum);
+    public void findByGrade(double sum){
+      repository.findByGrade(sum);
     }
 }
