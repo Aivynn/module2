@@ -9,18 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class StudentService extends SimpleService<Student>{
+public class StudentService {
 
     private final Random random = new Random();
     private final StudentRepository repository;
 
 
-    public StudentService(SimpleRepository<Student> repository) {
-        super(repository);
-        this.repository = (StudentRepository) repository;
+    public StudentService(StudentRepository repository) {
+        this.repository = repository;
     }
 
-    @Override
     public List<Student> createAndSavePeople(int count) {
         {
 
@@ -35,21 +33,18 @@ public class StudentService extends SimpleService<Student>{
             return products;
         }
     }
+
     protected Student createPerson() {
         Student student = new Student(
-               SimpleNameGenerator.generateName(),
-               SimpleNameGenerator.generateName(),
-               random.nextInt(18,60)
-       );
+                SimpleNameGenerator.generateName(),
+                SimpleNameGenerator.generateName(),
+                random.nextInt(18, 60)
+        );
         repository.save(student);
         return student;
     }
 
-    public void findStudentWithHighestGrades(){
-        repository.findStudentWithHighestGrades();
-    }
-
-    public void findByGrade(double sum){
-      repository.findByGrade(sum);
+    public void findByGrade(double sum) {
+        repository.findByGrade(sum);
     }
 }
